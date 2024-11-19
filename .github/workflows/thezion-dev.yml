@@ -1,4 +1,4 @@
-name: Docker
+name: thezion-dev
 
 # This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
@@ -7,9 +7,13 @@ name: Docker
 
 on:
   push:
-    branches: [ "dev" ]
+    branches:
+      - "thezion-dev"
     # Publish semver tags as releases.
     tags: [ 'v*.*.*' ]
+  pull_request:
+    branches:
+      - "thezion-dev"
   workflow_dispatch:  # Enable manual trigger
 
 env:
@@ -33,8 +37,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      - uses: satackey/action-docker-layer-caching@v0.0.11
-        continue-on-error: true
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -72,8 +74,8 @@ jobs:
         with:
           context: .
           push: true
-          platforms: linux/amd64,linux/arm64
-          tags: ${{ env.REGISTRY }}/${{ github.repository_owner }}/xboard:latest,${{ env.REGISTRY }}/${{ github.repository_owner }}/xboard,${{ env.REGISTRY }}/${{ github.repository_owner }}/xboard:${{ steps.get_version.outputs.version }}
+          platforms: linux/amd64
+          tags: ${{ env.REGISTRY }}/${{ github.repository_owner }}/xboard:dev,${{ env.REGISTRY }}/${{ github.repository_owner }}/xboard,${{ env.REGISTRY }}/${{ github.repository_owner }}/xboard:${{ steps.get_version.outputs.version }}
       # Sign the resulting Docker image digest except on PRs.
       # This will only write to the public Rekor transparency log when the Docker
       # repository is public to avoid leaking data.  If you would like to publish
@@ -87,3 +89,4 @@ jobs:
         # This step uses the identity token to provision an ephemeral certificate
         # against the sigstore community Fulcio instance.
         run: echo "${TAGS}" | xargs -I {} cosign sign --yes {}@${DIGEST}
+

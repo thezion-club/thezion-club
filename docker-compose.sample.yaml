@@ -1,9 +1,8 @@
-version: '3'
 services:
   xboard:
     # build: 
     #   context: .
-    image: ghcr.io/cedar2025/xboard:latest
+    image: ghcr.io/thezion-club/xboard:production
     volumes:
       - ./:/www/
       # - ./.env:/www/.env
