@@ -1,9 +1,18 @@
-name: Docker Build and Publish
+name: thezion-dev
+
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
 
 on:
   push:
-    branches: ["legacy"]
-  workflow_dispatch:
+    branches:
+      - "thezion-dev"
+  pull_request:
+    branches:
+      - "thezion-dev"
+  workflow_dispatch:  # Enable manual trigger
 
 env:
   REGISTRY: ghcr.io
@@ -11,14 +20,17 @@ env:
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
+      # This is used to complete the identity challenge
+      # with sigstore/fulcio when running outside of PRs.
       id-token: write
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -72,7 +84,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           tags: |
-            ${{ env.REGISTRY }}/${{ github.repository_owner }}/xboard:legacy
+            ${{ env.REGISTRY }}/${{ github.repository_owner }}/xboard:dev
             ${{ env.REGISTRY }}/${{ github.repository_owner }}/xboard:${{ steps.get_version.outputs.version }}
           build-args: |
             BUILDKIT_INLINE_CACHE=1
