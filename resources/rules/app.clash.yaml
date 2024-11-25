@@ -113,7 +113,7 @@ rule-providers:
     proxy: PROXY
     behavior: domain
     interval: 900
-
+    
 rules:
 - IP-CIDR,162.252.172.57/32,PROXY,no-resolve
 - IP-CIDR,149.154.159.92/32,PROXY,no-resolve
