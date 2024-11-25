@@ -11,9 +11,6 @@ on:
       - "thezion-dev"
     # Publish semver tags as releases.
     tags: [ 'v*.*.*' ]
-  pull_request:
-    branches:
-      - "thezion-dev"
   workflow_dispatch:  # Enable manual trigger
 
 env:

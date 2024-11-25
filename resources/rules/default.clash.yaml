@@ -8,7 +8,9 @@ dns:
   listen: 0.0.0.0:53
   ipv6: false
   default-nameserver:
-  - system
+  - 223.5.5.5
+  - 223.6.6.6
+  - 119.29.29.29
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
   use-hosts: true
@@ -29,7 +31,7 @@ dns:
   - 'apps.apple.com'
   - '+.thezion.club'
   nameserver-policy:
-    'rule-set:thezion-stream,thezion-proxy,gfw,apple,icloud,proxy':
+    'rule-set:thezion-proxy,gfw,apple,icloud,proxy':
     - 162.252.172.57
     - 149.154.159.92
   proxy-server-nameserver:
@@ -48,12 +50,6 @@ rule-providers:
   thezion-direct:
     type: http
     url: 'https://raw.githubusercontent.com/thezion-club/thezion-clash-rules/refs/heads/main/thezion-direct.conf'
-    proxy: PROXY
-    behavior: classical
-    interval: 900
-  thezion-stream:
-    type: http
-    url: 'https://raw.githubusercontent.com/thezion-club/thezion-clash-rules/refs/heads/main/thezion-stream.conf'
     proxy: PROXY
     behavior: classical
     interval: 900
@@ -122,16 +118,15 @@ rules:
 - IP-CIDR,162.252.172.57/32,PROXY,no-resolve
 - IP-CIDR,149.154.159.92/32,PROXY,no-resolve
 - RULE-SET,thezion-direct,DIRECT
-- RULE-SET,thezion-stream,PROXY
 - RULE-SET,thezion-proxy,PROXY
 - RULE-SET,gfw,PROXY
 - RULE-SET,apple,PROXY
 - RULE-SET,icloud,PROXY
 - RULE-SET,direct,DIRECT
 - RULE-SET,private,DIRECT
-- RULE-SET,cncidr,DIRECT,no-resolve
-- RULE-SET,lancidr,DIRECT,no-resolve
-- RULE-SET,telegramcidr,PROXY,no-resolve
+- RULE-SET,cncidr,DIRECT
+- RULE-SET,lancidr,DIRECT
+- RULE-SET,telegramcidr,PROXY
 - RULE-SET,proxy,PROXY
 - GEOIP,CN,DIRECT
 - MATCH,PROXY
