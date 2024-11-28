@@ -12073,7 +12073,7 @@ var sNe = p3((Yn, Xn) => {
    const sh = {
          "en-US": "English",
          "zh-CN": "简体中文",
-         "zh-TW": "繁體中文",
+         "zh-TW": "繁體中文"
       },
       lh = e => mn.global.t(e);
 
@@ -18952,7 +18952,7 @@ ${t}
             tipOriginalSize: "Zoom to original size"
          }
       },
-      B_ = FF,
+      B_ = FF;
    var KF = {
          lessThanXSeconds: {
             one: "不到 1 秒",
@@ -52214,7 +52214,7 @@ ${t}
                n = {
                   "en-US": [B_, H_],
                   "zh-CN": [zF, z0],
-                  "zh-TW": [LF, z0],
+                  "zh-TW": [LF, z0]
                };
 
             function o() {
