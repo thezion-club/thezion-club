@@ -60927,7 +60927,7 @@ ${t}
                            key: E.id,
                            onClick: R => a(E.id)
                         }, {
-                           default: ue(() => [U("div", ILe, [U("div", OLe, se(E.title), 1), U("div", MLe, se(f.$t("最后更新：")) + " " + se(we(zp)(E.updated_at)), 1)])]),
+                           default: ue(() => [U("div", ILe, [U("div", OLe, se(E.title), 1), U("div", MLe, se(f.$t("最后更新")) + " " + se(we(zp)(E.updated_at)), 1)])]),
                            _: 2
                         }, 1032, ["onClick"]))), 128))]),
                         _: 2
@@ -63874,7 +63874,7 @@ ${t}
          第二步: "Second Step",
          打开Telegram搜索: "Open Telegram and Search ",
          向机器人发送你的: "Send the following command to bot",
-         "最后更新：": "Last Updated:",
+         最后更新: "Last Updated",
          还有没支付的订单: "There are still unpaid orders",
          立即支付: "Pay Now",
          条工单正在处理中: "tickets are in process",
@@ -64162,7 +64162,7 @@ ${t}
          第二步: "第二步",
          打开Telegram搜索: "打开 Telegram 搜索",
          向机器人发送你的: "向机器人发送您的",
-         "最后更新：": "最后更新：",
+         最后更新: "最后更新",
          还有没支付的订单: "还有没支付的订单",
          立即支付: "立即支付",
          条工单正在处理中: "条工单正在处理中",
@@ -64450,7 +64450,7 @@ ${t}
          第二步: "步驟二",
          打开Telegram搜索: "打開 Telegram 並搜索",
          向机器人发送你的: "向機器人發送您的",
-         "最后更新：": "最後更新：",
+         最后更新: "最後更新",
          还有没支付的订单: "還有未支付的訂單",
          立即支付: "立即支付",
          条工单正在处理中: "條工單正在處理中",
