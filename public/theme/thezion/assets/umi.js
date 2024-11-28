@@ -12048,7 +12048,7 @@ var sNe = p3((Yn, Xn) => {
 
    function PA() {
       const e = navigator.language,
-         t = "zh-CN",
+         t = "en-US",
          o = YC.includes(e) ? e : t;
       return xu().value || GC(o), o
    }
@@ -12071,9 +12071,9 @@ var sNe = p3((Yn, Xn) => {
       e.use(mn), TA()
    }
    const sh = {
+         "en-US": "English",
          "zh-CN": "简体中文",
          "zh-TW": "繁體中文",
-         "en-US": "English",
       },
       lh = e => mn.global.t(e);
 
@@ -52212,8 +52212,8 @@ ${t}
          setup(e) {
             const t = Tn(),
                n = {
-                  "zh-CN": [zF, z0],
                   "en-US": [B_, H_],
+                  "zh-CN": [zF, z0],
                   "zh-TW": [LF, z0],
                };
 
@@ -64162,7 +64162,7 @@ ${t}
          第二步: "第二步",
          打开Telegram搜索: "打开 Telegram 搜索",
          向机器人发送你的: "向机器人发送您的",
-         最后更新: "{date}",
+         "最后更新: {date}": "最后更新: {date}",
          还有没支付的订单: "还有没支付的订单",
          立即支付: "立即支付",
          条工单正在处理中: "条工单正在处理中",
