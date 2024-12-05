@@ -32,8 +32,8 @@ dns:
   - '+.thezion.club'
   nameserver-policy:
     'geosite:netflix,disney':
-    - 162.252.172.57/32
-    - 149.154.159.92/32
+    - 162.252.172.57
+    - 149.154.159.92
     'rule-set:thezion-proxy,gfw,apple,icloud,proxy':
     - 223.5.5.0
   proxy-server-nameserver:
