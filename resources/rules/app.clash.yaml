@@ -31,9 +31,11 @@ dns:
   - 'apps.apple.com'
   - '+.thezion.club'
   nameserver-policy:
+    'geosite:netflix,disney':
+    - 162.252.172.57/32
+    - 149.154.159.92/32
     'rule-set:thezion-proxy,gfw,apple,icloud,proxy':
-    - 162.252.172.57
-    - 149.154.159.92
+    - 223.5.5.0
   proxy-server-nameserver:
   - tls://dns.alidns.com
   - tls://dot.pub
@@ -89,21 +91,9 @@ rule-providers:
     proxy: PROXY
     behavior: domain
     interval: 900
-  cncidr:
-    type: http
-    url: 'https://raw.githubusercontent.com/thezion-club/thezion-clash-rules/refs/heads/main/cncidr.txt'
-    proxy: PROXY
-    behavior: ipcidr
-    interval: 900
   lancidr:
     type: http
     url: 'https://raw.githubusercontent.com/thezion-club/thezion-clash-rules/refs/heads/main/lancidr.txt'
-    proxy: PROXY
-    behavior: ipcidr
-    interval: 900
-  telegramcidr:
-    type: http
-    url: 'https://raw.githubusercontent.com/thezion-club/thezion-clash-rules/refs/heads/main/telegramcidr.txt'
     proxy: PROXY
     behavior: ipcidr
     interval: 900
@@ -115,18 +105,14 @@ rule-providers:
     interval: 900
     
 rules:
-- IP-CIDR,162.252.172.57/32,PROXY,no-resolve
-- IP-CIDR,149.154.159.92/32,PROXY,no-resolve
-- RULE-SET,thezion-direct,DIRECT
-- RULE-SET,thezion-proxy,PROXY
+- RULE-SET,thezion-direct,DIRECT,no-resolve
+- RULE-SET,thezion-proxy,PROXY,no-resolve
 - RULE-SET,gfw,PROXY
 - RULE-SET,apple,PROXY
 - RULE-SET,icloud,PROXY
 - RULE-SET,direct,DIRECT
 - RULE-SET,private,DIRECT
-- RULE-SET,cncidr,DIRECT
-- RULE-SET,lancidr,DIRECT
-- RULE-SET,telegramcidr,PROXY
+- RULE-SET,lancidr,DIRECT,no-resolve
 - RULE-SET,proxy,PROXY
 - GEOIP,CN,DIRECT
 - MATCH,PROXY
