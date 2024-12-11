@@ -16,24 +16,13 @@ dns:
   use-hosts: true
   respect-rules: true
   fake-ip-filter:
+  - 'localhost'
   - '+.lan'
-  - '+.dnsapi.cn'
-  - '+.stun.*.*'
-  - '+.stun.*.*.*'
-  - '+.stun.*.*.*.*'
-  - '+.stun.*.*.*.*.*'
-  - '*.n.n.srv.nintendo.net'
-  - '+.stun.playstation.net'
-  - 'xbox.*.*.microsoft.com'
-  - '*.*.xboxlive.com'
-  - '*.msftncsi.com'
-  - '*.msftconnecttest.com'
-  - 'apps.apple.com'
-  - '+.thezion.club'
+  - '+.local'
+  - 'rule-set:thezion-fakeip-filter'
+  - 'rule-set:direct'
+  - 'rule-set:private'
   nameserver-policy:
-    'geosite:netflix,disney':
-    - 162.252.172.57
-    - 149.154.159.92
     'rule-set:thezion-proxy,gfw,apple,icloud,proxy':
     - 223.5.5.0
   proxy-server-nameserver:
@@ -49,6 +38,12 @@ proxy-groups:
   - { name: "PROXY", type: select, proxies: [] }
 
 rule-providers:
+  thezion-fakeip-filter:
+    type: http
+    url: 'https://raw.githubusercontent.com/thezion-club/thezion-clash-rules/refs/heads/main/thezion-fakeip-filter.conf'
+    proxy: PROXY
+    behavior: domain
+    interval: 900
   thezion-direct:
     type: http
     url: 'https://raw.githubusercontent.com/thezion-club/thezion-clash-rules/refs/heads/main/thezion-direct.conf'
