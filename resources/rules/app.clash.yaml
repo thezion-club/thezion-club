@@ -16,24 +16,17 @@ dns:
   use-hosts: true
   respect-rules: true
   fake-ip-filter:
+  - 'localhost'
   - '+.lan'
-  - '+.dnsapi.cn'
-  - '+.stun.*.*'
-  - '+.stun.*.*.*'
-  - '+.stun.*.*.*.*'
-  - '+.stun.*.*.*.*.*'
-  - '*.n.n.srv.nintendo.net'
-  - '+.stun.playstation.net'
-  - 'xbox.*.*.microsoft.com'
-  - '*.*.xboxlive.com'
-  - '*.msftncsi.com'
-  - '*.msftconnecttest.com'
-  - 'apps.apple.com'
-  - '+.thezion.club'
+  - '+.local'
+  - 'captive.apple.com'
+  - 'sequoia.apple.com'
+  - '+.msftconnecttest.com'
+  - '+.msftncsi.com'
+  - 'rule-set:thezion-direct'
+  - 'rule-set:direct'
+  - 'rule-set:private'
   nameserver-policy:
-    'geosite:netflix,disney':
-    - 162.252.172.57
-    - 149.154.159.92
     'rule-set:thezion-proxy,gfw,apple,icloud,proxy':
     - 223.5.5.0
   proxy-server-nameserver:
