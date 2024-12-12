@@ -19,11 +19,7 @@ dns:
   - 'localhost'
   - '+.lan'
   - '+.local'
-  - 'captive.apple.com'
-  - 'sequoia.apple.com'
-  - '+.msftconnecttest.com'
-  - '+.msftncsi.com'
-  - 'rule-set:thezion-direct'
+  - 'rule-set:thezion-fakeip-filter'
   - 'rule-set:direct'
   - 'rule-set:private'
   nameserver-policy:
@@ -42,6 +38,12 @@ proxy-groups:
   - { name: "PROXY", type: select, proxies: [] }
 
 rule-providers:
+  thezion-fakeip-filter:
+    type: http
+    url: 'https://raw.githubusercontent.com/thezion-club/thezion-clash-rules/refs/heads/main/thezion-fakeip-filter.conf'
+    proxy: PROXY
+    behavior: domain
+    interval: 900
   thezion-direct:
     type: http
     url: 'https://raw.githubusercontent.com/thezion-club/thezion-clash-rules/refs/heads/main/thezion-direct.conf'
