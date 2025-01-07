@@ -100,6 +100,7 @@ rule-providers:
     interval: 900
 
 rules:
+- DOMAIN,gspe1-ssl.ls.apple.com,PROXY
 - RULE-SET,thezion-direct,DIRECT,no-resolve
 - RULE-SET,thezion-proxy,PROXY,no-resolve
 - RULE-SET,gfw,PROXY
