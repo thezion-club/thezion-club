@@ -23,6 +23,9 @@ dns:
   - 'rule-set:direct'
   - 'rule-set:private'
   nameserver-policy:
+    'rule-set:thezion-direct':
+    - tls://dns.alidns.com
+    - tls://dot.pub
     'rule-set:thezion-proxy,gfw,apple,icloud,proxy':
     - 223.5.5.0
   proxy-server-nameserver:
