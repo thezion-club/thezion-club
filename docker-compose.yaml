@@ -1,6 +1,6 @@
 services:
   xboard:
-    image: ghcr.io/thezion-club/xboard:production
+    image: ghcr.io/thezion-club/xboard:legacy
     volumes:
       - ./.env:/www/.env
       - ./.docker/.data/:/www/.docker/.data/
@@ -13,7 +13,7 @@ services:
     network_mode: host
     restart: always
   redis:
-    build: 
+    build:
       context: .docker/services/redis
     restart: always
     volumes:
