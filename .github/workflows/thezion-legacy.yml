@@ -1,4 +1,4 @@
-name: thezion-dev
+name: thezion-legacy
 
 # This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
@@ -8,10 +8,10 @@ name: thezion-dev
 on:
   push:
     branches:
-      - "thezion-dev"
+      - "thezion-legacy"
   pull_request:
     branches:
-      - "thezion-dev"
+      - "thezion-legacy"
   workflow_dispatch:  # Enable manual trigger
 
 env:
@@ -84,7 +84,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           tags: |
-            ${{ env.REGISTRY }}/${{ github.repository_owner }}/xboard:dev
+            ${{ env.REGISTRY }}/${{ github.repository_owner }}/xboard:legacy
             ${{ env.REGISTRY }}/${{ github.repository_owner }}/xboard:${{ steps.get_version.outputs.version }}
           build-args: |
             BUILDKIT_INLINE_CACHE=1

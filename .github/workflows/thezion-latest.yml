@@ -1,4 +1,4 @@
-name: thezion-production
+name: thezion-latest
 
 # This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
@@ -8,10 +8,10 @@ name: thezion-production
 on:
   push:
     branches:
-      - "thezion-production"
+      - "thezion-latest"
   pull_request:
     branches:
-      - "thezion-production"
+      - "thezion-latest"
   workflow_dispatch:  # Enable manual trigger
 
 env:
@@ -84,7 +84,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           tags: |
-            ${{ env.REGISTRY }}/${{ github.repository_owner }}/xboard:production
+            ${{ env.REGISTRY }}/${{ github.repository_owner }}/xboard:latest
             ${{ env.REGISTRY }}/${{ github.repository_owner }}/xboard:${{ steps.get_version.outputs.version }}
           build-args: |
             BUILDKIT_INLINE_CACHE=1
