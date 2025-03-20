@@ -274,7 +274,7 @@ class Shadowrocket extends AbstractProtocol
                     "upmbps" => data_get($protocol_settings, 'bandwidth.up'),
                     "downmbps" => data_get($protocol_settings, 'bandwidth.down'),
                     "protocol" => 'udp',
-                    "fastopen" => 1,
+                    "fastopen" => 0,
                 ];
                 if ($serverName = data_get($protocol_settings, 'tls.server_name')) {
                     $params['peer'] = $serverName;
@@ -295,7 +295,8 @@ class Shadowrocket extends AbstractProtocol
             case 2:
                 $params = [
                     "obfs" => 'none',
-                    "fastopen" => 1
+                    "fastopen" => 0,
+                    "downmbps" => 0
                 ];
                 if ($serverName = data_get($protocol_settings, 'tls.server_name')) {
                     $params['peer'] = $serverName;
