@@ -26,7 +26,8 @@ class ClientController extends Controller
         'loon' => '637',
         'v2rayng' => '1.9.5',
         'v2rayN' => '6.31',
-        'surge' => '2398'
+        'surge' => '2398',
+        'flclash' => '0.8.0'
     ];
     // allowed types
     const AllowedTypes = ['vmess', 'vless', 'trojan', 'hysteria', 'shadowsocks', 'hysteria2'];
