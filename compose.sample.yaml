@@ -1,6 +1,6 @@
 services:
   web:
-    image: ghcr.io/cedar2025/xboard:new
+    image: ghcr.io/thezion-club/thezion-club:latest
     volumes:
       - ./.docker/.data/redis/:/data/
       - ./:/www/
@@ -9,10 +9,10 @@ services:
     depends_on:
       - redis
     network_mode: host
-    command: php artisan octane:start --port=7001 --host=0.0.0.0
+    command: php artisan octane:start --host=127.0.0.1 --port=13000
     restart: always
   horizon:
-    image: ghcr.io/cedar2025/xboard:new
+    image: ghcr.io/thezion-club/thezion-club:latest
     volumes:
       - ./.docker/.data/redis/:/data/
       - ./:/www/
@@ -22,7 +22,7 @@ services:
     depends_on:
       - redis
   redis:
-    image: redis:7-alpine
+    image: redis:8-alpine
     command: redis-server --unixsocket /data/redis.sock --unixsocketperm 777
     restart: unless-stopped
     volumes:
