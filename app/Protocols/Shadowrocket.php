@@ -258,7 +258,7 @@ class Shadowrocket
                     "downmbps" => $server['down_mbps'],
                     "protocol" => 'udp',
                     "peer" => $server['server_name'],
-                    "fastopen" => 1,
+                    "fastopen" => 0,
                     "alpn" => ServerHysteria::$alpnMap[$server['alpn']]
                 ];
                 if($server['is_obfs']){
@@ -275,7 +275,8 @@ class Shadowrocket
                 $params = [
                     "peer" => $server['server_name'],
                     "obfs" => 'none',
-                    "fastopen" => 1
+                    "downmbps" => 0,
+                    "fastopen" => 0
                 ];
                 if($server['is_obfs']) $params['obfs-password'] = $server['server_key'];
                 if($server['insecure']) $params['insecure'] = $server['insecure'];
