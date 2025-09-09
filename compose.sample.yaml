@@ -4,6 +4,7 @@ services:
     volumes:
       - ./.docker/.data/redis/:/data/
       - ./:/www/
+      - /etc/ssl:/etc/ssl:ro
     environment:
       - docker=true
     depends_on:
@@ -16,6 +17,7 @@ services:
     volumes:
       - ./.docker/.data/redis/:/data/
       - ./:/www/
+      - /etc/ssl:/etc/ssl:ro
     restart: always
     network_mode: host
     command: php artisan horizon
