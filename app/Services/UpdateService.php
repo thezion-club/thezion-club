@@ -24,9 +24,7 @@ class UpdateService
      */
     public function getCurrentVersion(): string
     {
-        $date = Cache::get(self::CACHE_VERSION_DATE, date('Ymd'));
-        $hash = Cache::get(self::CACHE_VERSION, $this->getCurrentCommit());
-        return $date . '-' . $hash;
+        return Cache::get(self::CACHE_VERSION, $this->getCurrentCommit());
     }
 
     /**
@@ -35,16 +33,29 @@ class UpdateService
     public function updateVersionCache(): void
     {
         try {
-            $result = Process::run('git log -1 --format=%cd:%H --date=format:%Y%m%d');
+            // Try to get the latest git tag
+            $tagResult = Process::run('git tag --sort=-creatordate | head -n 1');
+            if ($tagResult->successful()) {
+                $tag = trim($tagResult->output());
+                if ($tag) {
+                    // Remove 'v' prefix if it exists
+                    $tag = preg_replace('/^v/', '', $tag);
+                    Cache::forever(self::CACHE_VERSION_DATE, date('Ymd'));
+                    Cache::forever(self::CACHE_VERSION, $tag);
+                    return;
+                }
+            }
+
+            // Fallback to commit hash if no tag is available
+            $result = Process::run('git log -1 --format=%cd:%H --date=format:%Ym%d');
             if ($result->successful()) {
                 list($date, $hash) = explode(':', trim($result->output()));
                 Cache::forever(self::CACHE_VERSION_DATE, $date);
                 Cache::forever(self::CACHE_VERSION, substr($hash, 0, 7));
-                // Log::info('Version cache updated: ' . $date . '-' . substr($hash, 0, 7));
                 return;
             }
         } catch (\Exception $e) {
-            Log::error('Failed to get version with date: ' . $e->getMessage());
+            Log::error('Failed to get version: ' . $e->getMessage());
         }
 
         // Fallback
