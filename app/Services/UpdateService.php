@@ -18,12 +18,18 @@ class UpdateService
     const CACHE_UPDATE_LOCK = 'UPDATE_LOCK';
     const CACHE_VERSION = 'CURRENT_VERSION';
     const CACHE_VERSION_DATE = 'CURRENT_VERSION_DATE';
+    const CACHE_CURRENT_TAG = 'CURRENT_TAG';
     
     /**
      * Get current version from cache or generate new one
      */
     public function getCurrentVersion(): string
     {
+        $tag = Cache::get(self::CACHE_CURRENT_TAG);
+        if ($tag) {
+            return $tag;
+        }
+
         $date = Cache::get(self::CACHE_VERSION_DATE) ?? date('Ymd');
         $hash = Cache::rememberForever(self::CACHE_VERSION, function () {
             return $this->getCurrentCommit();
@@ -37,23 +43,62 @@ class UpdateService
     public function updateVersionCache(): void
     {
         try {
+            // Ensure git configuration is correct
+            Process::run(sprintf('git config --global --add safe.directory %s', base_path()));
+
+            $tag = $this->getCurrentTag();
+            if ($tag) {
+                // Remove leading 'v' if it exists, assuming the display layer prepends 'v'
+                if (str_starts_with($tag, 'v')) {
+                    $tag = substr($tag, 1);
+                }
+                Cache::forever(self::CACHE_CURRENT_TAG, $tag);
+                Cache::forget(self::CACHE_VERSION_DATE);
+                Cache::forget(self::CACHE_VERSION);
+                Log::info('Version cache updated with tag: ' . $tag);
+                return;
+            }
+
             $result = Process::run('git log -1 --format=%cd:%H --date=format:%Y%m%d');
             if ($result->successful()) {
                 list($date, $hash) = explode(':', trim($result->output()));
                 Cache::forever(self::CACHE_VERSION_DATE, $date);
                 Cache::forever(self::CACHE_VERSION, substr($hash, 0, 7));
+                Cache::forget(self::CACHE_CURRENT_TAG);
                 // Log::info('Version cache updated: ' . $date . '-' . substr($hash, 0, 7));
                 return;
             }
         } catch (\Exception $e) {
-            Log::error('Failed to get version with date: ' . $e->getMessage());
+            Log::error('Failed to get version with date or tag: ' . $e->getMessage());
         }
 
         // Fallback
         Cache::forever(self::CACHE_VERSION_DATE, date('Ymd'));
         $fallbackHash = $this->getCurrentCommit();
         Cache::forever(self::CACHE_VERSION, $fallbackHash);
+        Cache::forget(self::CACHE_CURRENT_TAG);
         Log::info('Version cache updated (fallback): ' . date('Ymd') . '-' . $fallbackHash);
+    }
+
+    protected function getCurrentTag(): ?string
+    {
+        try {
+            // Ensure git configuration is correct
+            Process::run(sprintf('git config --global --add safe.directory %s', base_path()));
+            $result = Process::run('git describe --tags --abbrev=0');
+            if ($result->successful()) {
+                $tag = trim($result->output());
+                // Check if the tag actually points to the current HEAD
+                $tagCommit = Process::run("git rev-list -n 1 $tag")->output();
+                $headCommit = Process::run("git rev-parse HEAD")->output();
+                if (trim($tagCommit) === trim($headCommit)) {
+                    return $tag;
+                }
+            }
+        } catch (\Exception $e) {
+            Log::warning('Failed to get current tag: ' . $e->getMessage());
+        }
+        return null;
     }
 
     public function checkForUpdates(): array
