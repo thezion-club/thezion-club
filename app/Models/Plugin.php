@@ -37,6 +37,7 @@ class Plugin extends Model
         'coin_payments',  // CoinPayments
         'mgate',          // MGate
         'telegram',       // Telegram
+        'stripe_wechat_alipay', // Stripe WeChat Alipay
     ];
 
     protected $guarded = [

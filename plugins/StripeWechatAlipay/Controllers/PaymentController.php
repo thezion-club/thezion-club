@@ -1,6 +1,6 @@
 <?php
 
-namespace Plugin\StripeWeChatAlipay\Controllers;
+namespace Plugin\StripeWechatAlipay\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
