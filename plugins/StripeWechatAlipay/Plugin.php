@@ -1,6 +1,6 @@
 <?php
 
-namespace Plugin\StripeWeChatAlipay;
+namespace Plugin\StripeWechatAlipay;
 
 use App\Services\Plugin\AbstractPlugin;
 use App\Contracts\PaymentInterface;
@@ -95,7 +95,7 @@ class Plugin extends AbstractPlugin implements PaymentInterface
     {
         $viewPath = $this->getBasePath() . '/resources/views';
         if (is_dir($viewPath)) {
-            view()->addNamespace('StripeWeChatAlipay', $viewPath);
+            view()->addNamespace('StripeWechatAlipay', $viewPath);
         }
     }
 
